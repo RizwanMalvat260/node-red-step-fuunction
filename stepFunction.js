@@ -345,7 +345,7 @@ var stepFunction = {
 }
 var getLambdaMappings = async function () {
   return new Promise(resolve => {
-    fs.readFile('../nodered-docker/package.json', 'utf8', function (err, contents) {
+    fs.readFile('../../package.json', 'utf8', function (err, contents) {
       allMappingFiles = Object.keys(JSON.parse(contents).dependencies);
       var promises = []
       allMappingFiles.forEach((listItem) => {
