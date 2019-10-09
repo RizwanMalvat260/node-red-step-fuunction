@@ -345,8 +345,9 @@ var stepFunction = {
 }
 var getLambdaMappings = async function () {
   return new Promise(resolve => {
-    fs.readFile('../../package.json', 'utf8', function (err, contents) {
-      if (contents !== 'undefined' || contents !== undefined) {
+    fs.readFile('../../../package.json', 'utf8', function (err, contents) {
+      console.log(contents);
+      if ( contents !== undefined || contents !== 'undefined') {
         allMappingFiles = Object.keys(JSON.parse(contents).dependencies);
         var promises = []
         allMappingFiles.forEach((listItem) => {
@@ -360,11 +361,14 @@ var getLambdaMappings = async function () {
           finalObject = Object.assign({}, ...data);
           resolve(finalObject)
         })
+      }else{
+        console.log('content is undefined');
       }
     });
   });
 
 }
+
 function fileReader(tempPath) {
   return new Promise(resolve => {
     fs.readFile(tempPath, 'utf8', function (err, contents) {
