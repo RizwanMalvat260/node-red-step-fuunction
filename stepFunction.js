@@ -346,7 +346,7 @@ var stepFunction = {
 var getLambdaMappings = async function () {
   return new Promise(resolve => {
     fs.readFile('../../package.json', 'utf8', function (err, contents) {
-      if (contents === 'undefined' || contents === undefined) {
+      if (contents !== 'undefined' || contents !== undefined) {
         allMappingFiles = Object.keys(JSON.parse(contents).dependencies);
         var promises = []
         allMappingFiles.forEach((listItem) => {
