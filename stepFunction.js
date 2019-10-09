@@ -359,6 +359,7 @@ var getLambdaMappings = async function () {
         var finalObject = null;
         when.all(promises).then((data) => {
           finalObject = Object.assign({}, ...data);
+          finalObject['http response'] = 'arn:aws:lambda:us-east-1:133013689155:function:wdev-lambda-crudwerp';
           resolve(finalObject)
         })
       }else{
@@ -368,6 +369,7 @@ var getLambdaMappings = async function () {
   });
 
 }
+
 
 function fileReader(tempPath) {
   return new Promise(resolve => {
