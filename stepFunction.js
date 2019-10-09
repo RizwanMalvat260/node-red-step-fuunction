@@ -346,24 +346,25 @@ var stepFunction = {
 var getLambdaMappings = async function () {
   return new Promise(resolve => {
     fs.readFile('../../package.json', 'utf8', function (err, contents) {
-      allMappingFiles = Object.keys(JSON.parse(contents).dependencies);
-      var promises = []
-      allMappingFiles.forEach((listItem) => {
-        const path = '/usr/src/node-red/node_modules/' + listItem.trim() + '/mapping.json';
-        // const tempPath = '../nodered-docker/mapping.json';
-        
-        promises.push(fileReader(path));
-      })
-      var finalObject = null;
-      when.all(promises).then((data) => {
-        finalObject =  Object.assign({}, ...data); 
-        resolve(finalObject)
-      })
+      if (contents === 'undefined' || contents === undefined) {
+        allMappingFiles = Object.keys(JSON.parse(contents).dependencies);
+        var promises = []
+        allMappingFiles.forEach((listItem) => {
+          const path = '/usr/src/node-red/node_modules/' + listItem.trim() + '/mapping.json';
+          // const tempPath = '../nodered-docker/mapping.json';
+
+          promises.push(fileReader(path));
+        })
+        var finalObject = null;
+        when.all(promises).then((data) => {
+          finalObject = Object.assign({}, ...data);
+          resolve(finalObject)
+        })
+      }
     });
   });
 
 }
-
 function fileReader(tempPath) {
   return new Promise(resolve => {
     fs.readFile(tempPath, 'utf8', function (err, contents) {
